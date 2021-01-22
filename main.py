@@ -2,10 +2,8 @@ import numpy as np
 from scipy import signal
 import pygame as pg
 
-def seed_board(grid_size):
-    rset = np.zeros(grid_size * 2)
-    rset[0] = 1
-    return np.random.choice(rset, size=(grid_size, grid_size))
+def seed_board(grid_size, chance_of_death):
+    return np.random.choice(np.append(np.zeros(chance_of_death), 1), size=(grid_size, grid_size))
 
 
 def game_of_life_tick(board):
@@ -39,11 +37,12 @@ def render_grid(screen, board, live_cell_colour):
 
 
 grid_size = 400
+chance_of_death = (grid_size * 2) - 100
 live_cell_colour = [32, 32, 42]
 dead_cell_colour = [255, 255, 255]
 target_fps = 5
 
-board = seed_board(grid_size)
+board = seed_board(grid_size, chance_of_death)
 
 clock = pg.time.Clock()
 screen = initialise_graphics(grid_size)
