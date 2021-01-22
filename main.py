@@ -33,14 +33,14 @@ def render_grid(screen, board, live_cell_colour):
     for y in range(0, len(board[0])):
         for x in range(0, len(board)):
             if board[x][y]:
-                pg.draw.rect(screen, live_cell_colour, (x, y, 1, 1))
+                screen.set_at((x, y), live_cell_colour)
 
 
 grid_size = 400
 chance_of_death = (grid_size * 2) - 100
 live_cell_colour = [32, 32, 42]
 dead_cell_colour = [255, 255, 255]
-target_fps = 5
+target_fps = 60
 
 board = seed_board(grid_size, chance_of_death)
 
