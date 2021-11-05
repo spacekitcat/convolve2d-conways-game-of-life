@@ -14,9 +14,9 @@ def game_of_life_tick(board):
     ])
 
     neighbours = signal.convolve2d(board, filter, 'same')
-    return np.where(
-        ((neighbours == 2) | (neighbours == 3) & (board == 1)) |
-        ((neighbours == 2) & (board == 0)),
+    return np.where(np.logical_or(
+        np.logical_and(np.logical_or(neighbours == 2, neighbours == 3), board == 1),
+        np.logical_and(neighbours == 3, board == 0)),
         1, 0)
 
 
@@ -37,7 +37,7 @@ def render_grid(screen, board, live_cell_colour):
 
 
 grid_size = 400
-chance_of_death = (grid_size * 2) - 100
+chance_of_death = 9
 live_cell_colour = [32, 32, 42]
 dead_cell_colour = [255, 255, 255]
 target_fps = 60
